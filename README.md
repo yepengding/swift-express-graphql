@@ -1,6 +1,9 @@
 # Swift Express with GraphQL
 
-A swift TypeScript-based Express web framework with GraphQL.
+A swift TypeScript-based Express web framework based on [swift-express](https://github.com/yepengding/swift-express).
+It adopts the aspect-oriented programming style and implements useful modules like logging aspect and global exception
+handler to boost the development.
+GraphQL is integrated into this version.
 
 # Quickstart
 
@@ -32,7 +35,15 @@ npm run start
 
 ## Create new models
 
-Refer to `User.ts` to create new models in folder `src/models`
+Refer to `User.ts` and `User.dto.ts` to create new entities and data transfer objects in folder `src/models`.
+
+## Create new repositories
+
+Refer to `UserRepository.ts` to create new repositories in folder `src/repositories`.
+
+## Create new services
+
+Refer to `UserService.ts` to create new services in folder `src/services`.
 
 ## Create new controllers
 
