@@ -63,7 +63,8 @@ class App {
 
         const apolloServer = new ApolloServer({
             schema,
-            debug: env.debug
+            debug: env.debug,
+            cache: "bounded"
         });
 
         await apolloServer.start()
