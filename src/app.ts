@@ -11,6 +11,7 @@ import {ErrorHandler} from "./common/error-handling/ErrorHandler";
 import {buildSchema} from "type-graphql";
 import {ApolloServer} from "apollo-server-express";
 import {UserResolver} from "./resolvers/UserResolver";
+import {GraphQLError} from "graphql";
 
 /**
  * App Entrance
@@ -63,8 +64,16 @@ class App {
 
         const apolloServer = new ApolloServer({
             schema,
+            csrfPrevention: true,
             debug: env.debug,
-            cache: "bounded"
+            cache: "bounded",
+            formatError: (error: GraphQLError) => {
+                if (env.debug) {
+                    return error;
+                }
+                logger.error(error);
+                return new Error(error.message);
+            }
         });
 
         await apolloServer.start()

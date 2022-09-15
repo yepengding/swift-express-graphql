@@ -24,8 +24,6 @@ type ValidationError = {
 @Service()
 export class ErrorHandler implements ExpressErrorMiddlewareInterface {
     error(error: Error, request: Request, response: Response, next: NextFunction) {
-        console.log("handling error")
-
         const errResponse: ErrResponse = {};
 
         if (error instanceof HttpError) {
