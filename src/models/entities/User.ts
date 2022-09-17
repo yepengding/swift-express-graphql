@@ -1,4 +1,4 @@
-import {Column, Entity, PrimaryGeneratedColumn} from "typeorm"
+import {Column, CreateDateColumn, Entity, PrimaryGeneratedColumn, UpdateDateColumn} from "typeorm"
 import {Field, ObjectType} from "type-graphql";
 
 /**
@@ -29,5 +29,13 @@ export class User {
     @Field()
     @Column()
     age: number
+
+    @Field()
+    @CreateDateColumn()
+    createdAt?: Date
+
+    @Field()
+    @UpdateDateColumn()
+    updatedAt?: Date
 
 }
