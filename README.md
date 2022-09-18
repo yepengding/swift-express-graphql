@@ -3,7 +3,7 @@
 A swift TypeScript-based Express web framework based on [swift-express](https://github.com/yepengding/swift-express).
 It adopts the aspect-oriented programming style and implements useful modules like logging aspect and global exception
 handler to boost the development.
-GraphQL is integrated into this version.
+GraphQL is integrated with the REST API.
 
 # Quickstart
 
@@ -47,7 +47,11 @@ Refer to `UserService.ts` to create new services in folder `src/services`.
 
 ## Create new resolvers
 
-Refer to `UserResolver.ts` to create new controllers in folder `src/resolvers`
+Refer to `UserResolver.ts` to create new resolvers in folder `src/resolvers`
+
+## Create new controllers (Optional)
+
+Refer to `UserController.ts` to create new controllers in folder `src/controllers`
 
 ## Run in dev
 
@@ -69,6 +73,7 @@ npm run lint
 
 - [swift-express](https://github.com/yepengding/swift-express)
 - [Express](https://expressjs.com/)
+- [GraphQL](https://graphql.org/)
 - [routing-controllers](https://github.com/typestack/routing-controllers)
 - [TypeORM](https://typeorm.io/)
 - [TypeDI](https://github.com/typestack/typedi)
