@@ -98,7 +98,7 @@ class App {
 
         const spec = routingControllersToSpec(storage, {}, {
             components: {schemas},
-            info: {title: 'Swift Express GraphQL API', version: '0.1.0'},
+            info: {title: 'Swift Express GraphQL API', version: '0.1.1'},
         })
         this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
     }
