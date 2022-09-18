@@ -45,9 +45,9 @@ Refer to `UserRepository.ts` to create new repositories in folder `src/repositor
 
 Refer to `UserService.ts` to create new services in folder `src/services`.
 
-## Create new controllers
+## Create new resolvers
 
-Refer to `UserController.ts` to create new controllers in folder `src/controllers`
+Refer to `UserResolver.ts` to create new controllers in folder `src/resolvers`
 
 ## Run in dev
 
