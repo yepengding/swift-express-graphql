@@ -21,8 +21,8 @@ import {validationMetadatasToSchemas} from "class-validator-jsonschema";
  *
  * @author Yepeng Ding
  */
-class App {
-    private readonly app: Application
+export class App {
+    private readonly app: Application;
 
     constructor() {
         // eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
@@ -41,16 +41,18 @@ class App {
      * Run application
      */
     public run() {
-        this.app.listen(env.app.port, () => {
-            logger.info(`🚀 App is running on port ${env.app.port}`);
-        });
+        // Run Apollo server
+        void this.runApolloServer();
+
+        // Run HTTP server
+        void this.runHttpServer();
     }
 
     /**
      * Initialize core settings
      * @private
      */
-    private async initializeCore() {
+    private initializeCore() {
         // Initialize logging
         this.app.use(morgan(env.log.format, {stream}));
 
@@ -60,7 +62,31 @@ class App {
             fallback: true,
             fallbackOnErrors: true
         });
+    }
 
+    /**
+     * Initialize Swagger UI
+     * @private
+     */
+    private initializeSwagger() {
+        const storage = getMetadataArgsStorage()
+        const schemas = validationMetadatasToSchemas({
+            refPointerPrefix: '#/components/schemas/',
+        })
+
+        const spec = routingControllersToSpec(storage, {}, {
+            components: {schemas},
+            info: {title: 'Swift Express GraphQL API', version: '0.1.1'},
+        })
+        this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
+    }
+
+    /**
+     * Run Apollo server.
+     *
+     * @private
+     */
+    private async runApolloServer() {
         // Set and start Apollo server to enable GraphQL
         const schema = await buildSchema({
             container: Container,
@@ -81,29 +107,21 @@ class App {
             }
         });
 
-        await apolloServer.start()
-        apolloServer.applyMiddleware({app: this.app})
+        await apolloServer.start();
+        apolloServer.applyMiddleware({app: this.app});
         logger.info(`🚀 Apollo is running at path ${apolloServer.graphqlPath}`);
     }
 
     /**
-     * Initialize Swagger UI
+     * Run HTTP server.
+     *
      * @private
      */
-    private initializeSwagger() {
-        const storage = getMetadataArgsStorage()
-        const schemas = validationMetadatasToSchemas({
-            refPointerPrefix: '#/components/schemas/',
-        })
-
-        const spec = routingControllersToSpec(storage, {}, {
-            components: {schemas},
-            info: {title: 'Swift Express GraphQL API', version: '0.1.1'},
-        })
-        this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
+    private runHttpServer() {
+        this.app.listen(env.app.port, () => {
+            logger.info(`🚀 App is running on port ${env.app.port}`);
+        });
     }
 
 }
 
-const app = new App();
-app.run();
