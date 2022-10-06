@@ -1,6 +1,6 @@
 {
   "name": "swift-express-graphql",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "A swift TypeScript-based Express web framework with GraphQL.",
   "main": "src/main.ts",
   "scripts": {
