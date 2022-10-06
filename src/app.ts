@@ -29,7 +29,7 @@ export class App {
         this.app = createExpressServer({
             cors: true,
             classTransformer: true,
-            controllers: [path.join(__dirname + '/controllers/*.js')],
+            controllers: [path.join(__dirname + '/controllers/*.{ts,js}')],
             middlewares: [ErrorHandler],
             defaultErrorHandler: false
         });
@@ -39,13 +39,15 @@ export class App {
 
     /**
      * Run application
+     *
+     * @return HTTP server
      */
     public run() {
         // Run Apollo server
         void this.runApolloServer();
 
         // Run HTTP server
-        void this.runHttpServer();
+        return this.runHttpServer();
     }
 
     /**
@@ -116,9 +118,10 @@ export class App {
      * Run HTTP server.
      *
      * @private
+     * @return HTTP server
      */
     private runHttpServer() {
-        this.app.listen(env.app.port, () => {
+        return this.app.listen(env.app.port, () => {
             logger.info(`🚀 App is running on port ${env.app.port}`);
         });
     }
