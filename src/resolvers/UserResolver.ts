@@ -4,6 +4,7 @@ import {UserService} from "../services/UserService";
 import {User} from "../models/entities/User";
 import {Assert} from "../common/assertion/Assert";
 import {CreateUser} from "../models/dtos/User.dto";
+import {HttpErrorCode} from "../common/error-handling/ErroCode";
 
 /**
  * User Resolver
@@ -31,7 +32,7 @@ export class UserResolver {
     })
     async getUser(@Arg('id') id: number): Promise<User | null> {
         const user = await this.userService.retrieve(id);
-        Assert.notNull(user, `User (${id}) does not exist.`);
+        Assert.notNull(user, HttpErrorCode.NOT_FOUND, `User (${id}) does not exist.`);
         return user;
     }
 
@@ -40,7 +41,7 @@ export class UserResolver {
     })
     async createUser(@Arg('user') user: CreateUser): Promise<User> {
         const exist = await this.userService.exists(user.username);
-        Assert.isFalse(exist, `User (${user.username}) exists.`);
+        Assert.isFalse(exist, HttpErrorCode.FORBIDDEN, `User (${user.username}) exists.`);
 
         const _user = new User();
         _user.username = user.username;
