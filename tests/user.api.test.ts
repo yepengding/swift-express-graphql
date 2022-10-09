@@ -1,9 +1,13 @@
+/**
+ * User REST API Test Cases
+ *
+ */
 import {App} from "../src/app";
 import request from "supertest";
 import * as http from "http";
 import * as process from "process";
 
-describe('User API tests', () => {
+describe('User REST API tests', () => {
 
     let server: http.Server;
 
@@ -13,6 +17,7 @@ describe('User API tests', () => {
     })
 
     after(() => {
+        server.close();
         process.exit(0);
     })
 

@@ -1,3 +1,8 @@
+/**
+ * User GraphQL Test Cases
+ *
+ * @author Yepeng Ding
+ */
 import {App} from "../src/app";
 import request from "supertest";
 import * as http from "http";
@@ -13,6 +18,7 @@ describe('User GraphQL tests', () => {
     })
 
     after(() => {
+        server.close();
         process.exit(0);
     })
 

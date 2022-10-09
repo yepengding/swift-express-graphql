@@ -17,7 +17,7 @@ import path from "path";
 import {validationMetadatasToSchemas} from "class-validator-jsonschema";
 
 /**
- * App Entrance
+ * Application
  *
  * @author Yepeng Ding
  */
@@ -78,7 +78,7 @@ export class App {
 
         const spec = routingControllersToSpec(storage, {}, {
             components: {schemas},
-            info: {title: 'Swift Express GraphQL API', version: '0.1.1'},
+            info: {title: 'Swift Express GraphQL API', version: '0.1.3'},
         })
         this.app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(spec));
     }
